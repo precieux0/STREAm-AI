@@ -144,7 +144,7 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
 
       state = state.copyWith(progress: 80);
 
-      await _supabaseService.saveImage(image);
+      await _supabaseService.saveGeneratedImage(image);
 
       state = state.copyWith(progress: 100);
 

@@ -123,7 +123,7 @@ class ImageGenerationService {
         final tempDir = await getTemporaryDirectory();
         final fileName = 'stream_ai_elias_${DateTime.now().millisecondsSinceEpoch}.png';
         final file = File('${tempDir.path}/$fileName');
-        await file.writeAsBytes(Uint8List.fromList(List<int>.from(response.data)));
+        await file.writeAsBytes(Uint8List.fromList(response.data as List<int>));
         
         _logger.info('Elias image saved to: ${file.path}');
         return file.path; // Retourne le chemin local
@@ -225,7 +225,7 @@ class ImageGenerationService {
         options: Options(responseType: ResponseType.bytes),
       );
 
-      return Uint8List.fromList(List<int>.from(response.data));
+      return Uint8List.fromList(response.data as List<int>);
     } catch (e) {
       _logger.error('Error downloading image: $e');
       rethrow;
