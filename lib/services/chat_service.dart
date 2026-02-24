@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:path_provider/path_provider.dart';
 import '../models/models.dart';
 import '../utils/logger.dart';
 import '../utils/constants.dart';
@@ -118,7 +116,7 @@ class ChatService {
 
       if (response.statusCode == 200) {
         final data = response.data;
-        return data['response'] ?? data['assistant'] ?? null;
+        return (data[.response.] ?? data[.assistant.]) as String?;
       }
       return null;
     } on DioException catch (e) {
@@ -248,7 +246,7 @@ Fournis la réponse au format JSON avec la structure suivante:
 
       final jsonMatch = RegExp(r'\{[\s\S]*\}').firstMatch(response);
       if (jsonMatch != null) {
-        return jsonDecode(jsonMatch.group(0)!);
+        return jsonDecode(jsonMatch.group(0)!) as Map<String, dynamic>;
       }
 
       throw Exception('Format de réponse invalide');

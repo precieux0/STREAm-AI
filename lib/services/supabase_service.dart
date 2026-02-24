@@ -1,3 +1,5 @@
+import 'package:stream_ai/utils/constants.dart';
+import 'package:stream_ai/models/models.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/models.dart';
 import '../utils/logger.dart';
@@ -39,16 +41,16 @@ class SupabaseService {
       var query = _client
           .from('messages')
           .select()
-          .eq('user_id', userId)
+          .filter('user_id', 'eq', userId)
           .order('created_at', ascending: false)
           .limit(limit);
 
       if (mode != null) {
-        query = query.eq('mode', mode);
+        query = query.filter('mode', 'eq', mode);
       }
 
       if (before != null) {
-        query = query.lt('created_at', before.toIso8601String());
+        query = query.filter('created_at', 'lt', before.toIso8601String(.toIso8601String()));
       }
 
       final response = await query;
@@ -76,7 +78,7 @@ class SupabaseService {
   // Supprimer un message
   Future<void> deleteMessage(String messageId) async {
     try {
-      await _client.from('messages').delete().eq('id', messageId);
+      await _client.from('messages').delete().filter('id', 'eq', messageId);
       _logger.info('Message deleted: $messageId');
     } catch (e) {
       _logger.error('Error deleting message: $e');
@@ -87,7 +89,7 @@ class SupabaseService {
   // Supprimer tous les messages d'un utilisateur
   Future<void> deleteAllUserMessages(String userId) async {
     try {
-      await _client.from('messages').delete().eq('user_id', userId);
+      await _client.from('messages').delete().filter('user_id', 'eq', userId);
       _logger.info('All messages deleted for user: $userId');
     } catch (e) {
       _logger.error('Error deleting all user messages: $e');
@@ -120,7 +122,7 @@ class SupabaseService {
       final response = await _client
           .from('projects')
           .select()
-          .eq('user_id', userId)
+          .filter('user_id', 'eq', userId)
           .order('created_at', ascending: false);
 
       final projects = (response as List)
@@ -138,7 +140,7 @@ class SupabaseService {
   // Supprimer un projet
   Future<void> deleteProject(String projectId) async {
     try {
-      await _client.from('projects').delete().eq('id', projectId);
+      await _client.from('projects').delete().filter('id', 'eq', projectId);
       _logger.info('Project deleted: $projectId');
     } catch (e) {
       _logger.error('Error deleting project: $e');
@@ -172,7 +174,7 @@ class SupabaseService {
       final response = await _client
           .from('generated_images')
           .select()
-          .eq('user_id', userId)
+          .filter('user_id', 'eq', userId)
           .order('created_at', ascending: false);
 
       final images = (response as List)
@@ -190,7 +192,7 @@ class SupabaseService {
   // Supprimer une image
   Future<void> deleteImage(String imageId) async {
     try {
-      await _client.from('generated_images').delete().eq('id', imageId);
+      await _client.from('generated_images').delete().filter('id', 'eq', imageId);
       _logger.info('Image deleted: $imageId');
     } catch (e) {
       _logger.error('Error deleting image: $e');
@@ -206,7 +208,7 @@ class SupabaseService {
       final response = await _client
           .from('users')
           .select()
-          .eq('id', userId)
+          .filter('id', 'eq', userId)
           .maybeSingle();
 
       if (response == null) return null;
@@ -224,7 +226,7 @@ class SupabaseService {
       final response = await _client
           .from('users')
           .update(user.toJson())
-          .eq('id', user.id)
+          .filter('id', 'eq', user.id)
           .select()
           .single();
 
@@ -247,10 +249,10 @@ class SupabaseService {
       final response = await _client
           .from('messages')
           .delete()
-          .lt('created_at', cutoffDate)
+          .filter('created_at', 'lt', cutoffDate.toIso8601String())
           .select();
 
-      final count = (response as List).length;
+      final count = (response as Map<String, dynamic>;
       _logger.info('Cleaned up $count old messages');
       return count;
     } catch (e) {

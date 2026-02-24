@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/user_model.dart';
@@ -37,7 +36,7 @@ class AuthService {
       final response = await _supabase
           .from('users')
           .select()
-          .eq('id', userId)
+          .filter('id', 'eq', userId)
           .single();
 
       _currentUser = UserModel.fromJson(response);
@@ -106,7 +105,7 @@ class AuthService {
       final existingUser = await _supabase
           .from('users')
           .select()
-          .eq('id', userId)
+          .filter('id', 'eq', userId)
           .maybeSingle();
 
       if (existingUser == null) {
@@ -125,7 +124,7 @@ class AuthService {
         await _supabase.from('users').update({
           'name': googleUser.displayName,
           'photo_url': googleUser.photoUrl,
-        }).eq('id', userId);
+        }).filter('id', 'eq', userId);
         _logger.info('User updated: ${googleUser.email}');
       }
     } catch (e) {
@@ -197,7 +196,7 @@ class AuthService {
 
       await _supabase.from('users').update({
         'preferences': preferences,
-      }).eq('id', userId);
+      }).filter('id', 'eq', userId);
 
       // Recharger les données
       await _loadUserData(userId);

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/generated_image_model.dart';
 import '../services/image_generation_service.dart';
@@ -11,9 +10,15 @@ final imageGenerationViewModelProvider =
         (ref) {
   final imageService = ref.watch(imageGenerationServiceProvider);
   final supabaseService = ref.watch(supabaseServiceProvider);
+  final imageService = ref.watch(imageGenerationServiceProvider);
+  final supabaseService = ref.watch(supabaseServiceProvider);
   final userId = ref.watch(currentUserIdProvider);
-  return ImageGenerationViewModel(imageService, supabaseService, userId);
-});
+  final imageService = ref.watch(imageGenerationServiceProvider);
+  final supabaseService = ref.watch(supabaseServiceProvider);
+  final userId = ref.watch(currentUserIdProvider);
+  final imageService = ref.watch(imageGenerationServiceProvider);
+  final supabaseService = ref.watch(supabaseServiceProvider);
+  final userId = ref.watch(currentUserIdProvider);
 
 final imageGenerationServiceProvider =
     Provider<ImageGenerationService>((ref) => ImageGenerationService());

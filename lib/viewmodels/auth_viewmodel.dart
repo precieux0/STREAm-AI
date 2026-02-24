@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
@@ -76,7 +75,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
   // Connexion avec Google
   Future<void> signInWithGoogle() async {
     try {
-      state = state.copyWith(isLoading: true, error: null);
+      state = state.copyWith(isLoading: true);
 
       final user = await _authService.signInWithGoogle();
 

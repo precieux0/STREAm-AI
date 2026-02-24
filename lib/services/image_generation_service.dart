@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -9,6 +8,29 @@ import '../utils/logger.dart';
 import '../utils/constants.dart';
 
 class ImageGenerationService {
+
+  String enhancePrompt(String prompt, String? style) {
+    final buffer = StringBuffer();
+    switch (style?.toLowerCase()) {
+      case 'photographic':
+        buffer.write('professional photography, high quality, detailed, ');
+        break;
+      case 'digital-art':
+        buffer.write('digital art, vibrant colors, detailed, ');
+        break;
+      case 'cinematic':
+        buffer.write('cinematic shot, dramatic lighting, ');
+        break;
+      case 'anime':
+        buffer.write('anime style, vibrant, detailed, ');
+        break;
+      default:
+        buffer.write('high quality, detailed, ');
+    }
+    buffer.write(prompt);
+    return buffer.toString();
+  }
+
   final Dio _dio;
   final _logger = AppLogger('ImageGenerationService');
   final _uuid = const Uuid();
@@ -101,7 +123,7 @@ class ImageGenerationService {
         final tempDir = await getTemporaryDirectory();
         final fileName = 'stream_ai_elias_${DateTime.now().millisecondsSinceEpoch}.png';
         final file = File('${tempDir.path}/$fileName');
-        await file.writeAsBytes(response.data);
+        await file.writeAsBytes(Uint8List.fromList(List<int>.from(response.data)));
         
         _logger.info('Elias image saved to: ${file.path}');
         return file.path; // Retourne le chemin local
@@ -203,7 +225,7 @@ class ImageGenerationService {
         options: Options(responseType: ResponseType.bytes),
       );
 
-      return Uint8List.fromList(response.data);
+      return Uint8List.fromList(List<int>.from(response.data));
     } catch (e) {
       _logger.error('Error downloading image: $e');
       rethrow;

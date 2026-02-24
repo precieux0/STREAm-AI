@@ -2,6 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+
+  static Color getLanguageColor(String language) {
+    switch (language.toLowerCase()) {
+      case 'dart':
+        return Colors.blue;
+      case 'javascript':
+        return Colors.yellow;
+      case 'python':
+        return Colors.green;
+      case 'java':
+        return Colors.orange;
+      case 'kotlin':
+        return Colors.purple;
+      case 'swift':
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
   // Couleurs principales - Thème Stream AI
   static const Color primaryColor = Color(0xFF6366F1);
   static const Color primaryLight = Color(0xFF818CF8);
