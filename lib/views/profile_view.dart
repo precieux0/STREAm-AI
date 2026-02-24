@@ -1,9 +1,9 @@
 import 'package:stream_ai/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:state_notifier/state_notifier.dart';
 import 'package:stream_ai/viewmodels/auth_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../utils/theme.dart';
-import '../viewmodels/auth_viewmodel.dart';
 import 'login_view.dart';
 
 class ProfileView extends ConsumerWidget {
