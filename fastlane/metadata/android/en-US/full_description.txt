@@ -1,0 +1,34 @@
+Stream AI est votre assistant intelligent tout-en-un qui révolutionne votre façon de travailler et de créer.
+
+🤖 CHAT MULTI-IA
+Discutez avec une intelligence artificielle avancée capable de comprendre et répondre dans plusieurs langues. Notre système détecte automatiquement votre langue pour une expérience fluide et naturelle.
+
+💬 MODE ASK
+Posez des questions sur n'importe quel sujet et obtenez des réponses claires et précises. Parfait pour :
+- Recherches d'information
+- Explications de concepts
+- Assistance quotidienne
+- Brainstorming d'idées
+
+👨‍💻 MODE AGENT
+Un développeur IA à votre service :
+- Génération de code dans tous les langages
+- Création de projets complets avec structure de fichiers
+- Analyse et optimisation de code
+- Export de projets au format ZIP
+
+🎨 GÉNÉRATION D'IMAGES
+Transformez vos descriptions en images uniques :
+- Styles variés (photographique, digital art, anime, etc.)
+- Tailles personnalisables
+- Sauvegarde et partage facile
+
+🔒 SÉCURITÉ
+- Connexion sécurisée via Google
+- Données chiffrées et protégées
+- Confidentialité respectée
+
+🌐 MULTI-LANGUE
+Support du français, anglais, espagnol, allemand, italien, portugais et plus encore.
+
+Créé par Précieux Okitakoy avec passion pour l'innovation.

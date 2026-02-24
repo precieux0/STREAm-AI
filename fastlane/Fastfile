@@ -1,0 +1,52 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build debug APK"
+  lane :debug do
+    flutter_build(
+      build: 'apk',
+      debug: true
+    )
+  end
+
+  desc "Build release APK"
+  lane :release do
+    flutter_build(
+      build: 'apk',
+      release: true
+    )
+  end
+
+  desc "Build App Bundle for Play Store"
+  lane :bundle do
+    flutter_build(
+      build: 'appbundle',
+      release: true
+    )
+  end
+
+  desc "Deploy to internal testing"
+  lane :deploy_internal do
+    bundle
+    upload_to_play_store(
+      track: 'internal',
+      release_status: 'draft'
+    )
+  end
+
+  desc "Deploy to beta"
+  lane :deploy_beta do
+    bundle
+    upload_to_play_store(
+      track: 'beta'
+    )
+  end
+
+  desc "Deploy to production"
+  lane :deploy_production do
+    bundle
+    upload_to_play_store(
+      track: 'production'
+    )
+  end
+end
