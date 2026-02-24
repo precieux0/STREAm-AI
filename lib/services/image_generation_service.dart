@@ -157,7 +157,7 @@ class ImageGenerationService {
         final data = response.data;
         // Réponse: { "image_link": "url_image", "status": "success" }
         if (data['image_link'] != null) {
-          return data['image_link'] as String;
+          return data['image_link'] as String?;
         }
       }
       return null;

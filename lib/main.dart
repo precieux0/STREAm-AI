@@ -43,8 +43,10 @@ class StreamAIApp extends StatelessWidget {
           );
           return AuthService(supabase, googleSignIn);
         }),
-          return SupabaseService(Supabase.instance.client);
+        supabaseServiceProvider.overrideWith((ref) {
+          return SupabaseService();
         }),
+        currentUserIdProvider.overrideWith((ref) {
           return Supabase.instance.client.auth.currentUser?.id;
         }),
       ],

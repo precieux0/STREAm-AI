@@ -89,7 +89,7 @@ class ChatService {
       if (response.statusCode == 200) {
         final data = response.data;
         if (data['data'] != null) {
-          return data['data'] as String;
+          return data['data'] as String?;
         }
       }
       return null;

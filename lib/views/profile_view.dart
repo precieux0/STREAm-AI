@@ -12,7 +12,7 @@ class ProfileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authViewModel = ref.read(authViewModelProvider.notifier);
-    final user = authState.user;
+    final user = authViewModel.state.user;
 
     return Scaffold(
       appBar: AppBar(
@@ -53,10 +53,10 @@ class ProfileView extends ConsumerWidget {
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton.icon(
-                    onPressed: authState.isLoading
+                    onPressed: authViewModel.state.isLoading
                         ? null
                         : () => _showSignOutDialog(context, ref),
-                    icon: authState.isLoading
+                    icon: authViewModel.state.isLoading
                         ? const SizedBox(
                             width: 20,
                             height: 20,
