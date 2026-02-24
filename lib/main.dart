@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'views/splash_view.dart';
 import 'services/auth_service.dart';
+import 'services/supabase_service.dart';
 import 'utils/constants.dart';
 
 void main() async {
