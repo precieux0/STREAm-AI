@@ -87,11 +87,11 @@ class ProfileView extends ConsumerWidget {
             CircleAvatar(
               radius: 50,
               backgroundImage:
-                  user.photoUrl != null ? NetworkImage(user.photoUrl!) : null,
+                  user.photoUrl != null ? NetworkImage(user.photoUrl! as String) : null,
               backgroundColor: AppTheme.primaryColor.withOpacity(0.2),
               child: user.photoUrl == null
                   ? Text(
-                      user.name?.substring(0, 1).toUpperCase() ??
+                      user.name?.substring as String(0, 1).toUpperCase() ??
                           user.email.substring(0, 1).toUpperCase(),
                       style: const TextStyle(
                         fontSize: 36,
@@ -106,7 +106,7 @@ class ProfileView extends ConsumerWidget {
 
             // Nom
             Text(
-              user.name ?? 'Utilisateur',
+              user.name as String? ?? 'Utilisateur',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -116,7 +116,7 @@ class ProfileView extends ConsumerWidget {
 
             // Email
             Text(
-              user.email,
+              user.email as String,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context)
                         .colorScheme
@@ -129,7 +129,7 @@ class ProfileView extends ConsumerWidget {
 
             // Date d'inscription
             Text(
-              'Membre depuis ${_formatDate(user.createdAt)}',
+              'Membre depuis ${_formatDate(DateTime.parse(user.createdAt as String))}',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context)
                         .colorScheme

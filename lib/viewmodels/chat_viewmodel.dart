@@ -311,14 +311,24 @@ class ChatViewModel extends StateNotifier<ChatState> {
       final project = ProjectModel(
         id: _uuid.v4(),
         userId: _userId!,
-        name: projectJson['name'] ?? 'Projet sans nom',
-        description: projectJson['description'] ?? '',
-        files: (projectJson['files'] as List?)
-                ?.map((f) => ProjectFile(
-                      name: f['name'] ?? '',
-                      path: f['path'] ?? '',
-                      content: f['content'] ?? '',
-                      language: f['language'] ?? 'text',
+        final project = ProjectModel(
+          id: _uuid.v4(),
+          userId: _userId!,
+          name: projectJson['name'] as String? ?? 'Projet sans nom',
+          description: projectJson['description'] as String? ?? '',
+          files: (projectJson['files'] as List?)?.map((f) => ProjectFile(
+                name: f['name'] as String? ?? '',
+                path: f['path'] as String? ?? '',
+                content: f['content'] as String? ?? '',
+                language: f['language'] as String? ?? 'text',
+              )).toList() ?? [],
+          projectType: projectType,
+          createdAt: DateTime.now(),
+          metadata: {
+            'instructions': projectJson['instructions'],
+            'generated_at': DateTime.now().toIso8601String(),
+          },
+        );
                     ))
                 .toList() ??
             [],

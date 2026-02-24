@@ -331,7 +331,7 @@ class _ImageGenerationViewState extends ConsumerState<ImageGenerationView> {
           // Image
           if (image.imageUrl != null)
             Image.network(
-              image.imageUrl!,
+              image.imageUrl! as String,
               fit: BoxFit.cover,
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) return child;
@@ -379,7 +379,7 @@ class _ImageGenerationViewState extends ConsumerState<ImageGenerationView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    image.prompt,
+                    image.prompt as String,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -391,7 +391,7 @@ class _ImageGenerationViewState extends ConsumerState<ImageGenerationView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
-                        image.style,
+                        image.style as String,
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.7),
                           fontSize: 10,
@@ -414,7 +414,7 @@ class _ImageGenerationViewState extends ConsumerState<ImageGenerationView> {
                 onTap: () {
                   ref
                       .read(imageGenerationViewModelProvider.notifier)
-                      .deleteImage(image.id);
+                      .deleteImage(image.id as String);
                 },
                 customBorder: const CircleBorder(),
                 child: const Padding(
