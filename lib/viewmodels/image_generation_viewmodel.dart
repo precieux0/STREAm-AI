@@ -4,26 +4,27 @@ import '../services/image_generation_service.dart';
 import '../services/supabase_service.dart';
 import '../utils/logger.dart';
 
-// Provider pour le ImageGenerationViewModel
+final imageGenerationServiceProvider = Provider<ImageGenerationService>((ref) {
+  return ImageGenerationService();
+});
+
 final imageGenerationViewModelProvider =
     StateNotifierProvider<ImageGenerationViewModel, ImageGenerationState>(
         (ref) {
   final imageService = ref.watch(imageGenerationServiceProvider);
   final supabaseService = ref.watch(supabaseServiceProvider);
-  final imageService = ref.watch(imageGenerationServiceProvider);
-  final supabaseService = ref.watch(supabaseServiceProvider);
   final userId = ref.watch(currentUserIdProvider);
-  final imageService = ref.watch(imageGenerationServiceProvider);
-  final supabaseService = ref.watch(supabaseServiceProvider);
-  final userId = ref.watch(currentUserIdProvider);
-  final imageService = ref.watch(imageGenerationServiceProvider);
-  final supabaseService = ref.watch(supabaseServiceProvider);
-  final userId = ref.watch(currentUserIdProvider);
+  return ImageGenerationViewModel(imageService, supabaseService, userId);
+});
 
-final imageGenerationServiceProvider =
-    Provider<ImageGenerationService>((ref) => ImageGenerationService());
+final supabaseServiceProvider = Provider<SupabaseService>((ref) {
+  throw UnimplementedError('Doit être override dans main.dart');
+});
 
-// État de la génération d'images
+final currentUserIdProvider = Provider<String?>((ref) {
+  throw UnimplementedError('Doit être override dans main.dart');
+});
+
 class ImageGenerationState {
   final List<GeneratedImageModel> images;
   final bool isGenerating;
@@ -96,15 +97,11 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
     }
   }
 
-  // Charger les images existantes
   Future<void> loadImages() async {
     if (_userId == null) return;
-
     try {
       final images = await _supabaseService.getUserImages(_userId!);
-
       state = state.copyWith(images: images);
-
       _logger.info('Loaded ${images.length} images');
     } catch (e) {
       _logger.error('Error loading images: $e');
@@ -112,7 +109,6 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
     }
   }
 
-  // Générer une image
   Future<GeneratedImageModel?> generateImage(String prompt) async {
     if (_userId == null) {
       state = state.copyWith(error: 'Utilisateur non connecté');
@@ -132,7 +128,6 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
         progress: 0,
       );
 
-      // Améliorer le prompt
       final enhancedPrompt = _imageService.enhancePrompt(
         prompt.trim(),
         state.selectedStyle,
@@ -140,7 +135,6 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
 
       state = state.copyWith(progress: 30);
 
-      // Générer l'image
       final image = await _imageService.generateImage(
         userId: _userId!,
         prompt: enhancedPrompt,
@@ -150,12 +144,10 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
 
       state = state.copyWith(progress: 80);
 
-      // Sauvegarder dans Supabase
-      await _supabaseService.saveGeneratedImage(image);
+      await _supabaseService.saveImage(image);
 
       state = state.copyWith(progress: 100);
 
-      // Mettre à jour l'état
       final updatedImages = [image, ...state.images];
       state = state.copyWith(
         images: updatedImages,
@@ -176,26 +168,15 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
     }
   }
 
-  // Définir le style
-  void setStyle(String? style) {
-    state = state.copyWith(selectedStyle: style);
-  }
+  void setStyle(String? style) => state = state.copyWith(selectedStyle: style);
+  void setSize(String? size) => state = state.copyWith(selectedSize: size);
+  void clearError() => state = state.clearError();
 
-  // Définir la taille
-  void setSize(String? size) {
-    state = state.copyWith(selectedSize: size);
-  }
-
-  // Supprimer une image
   Future<void> deleteImage(String imageId) async {
     try {
       await _supabaseService.deleteImage(imageId);
-
-      final updatedImages =
-          state.images.where((img) => img.id != imageId).toList();
-
+      final updatedImages = state.images.where((img) => img.id != imageId).toList();
       state = state.copyWith(images: updatedImages);
-
       _logger.info('Image deleted: $imageId');
     } catch (e) {
       _logger.error('Error deleting image: $e');
@@ -203,15 +184,6 @@ class ImageGenerationViewModel extends StateNotifier<ImageGenerationState> {
     }
   }
 
-  // Effacer l'erreur
-  void clearError() {
-    state = state.clearError();
-  }
-
-  // Obtenir les styles disponibles
-  List<Map<String, String>> get availableStyles =>
-      _imageService.availableStyles;
-
-  // Obtenir les tailles disponibles
+  List<Map<String, String>> get availableStyles => _imageService.availableStyles;
   List<Map<String, String>> get availableSizes => _imageService.availableSizes;
 }

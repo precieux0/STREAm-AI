@@ -7,7 +7,7 @@ import '../models/project_model.dart';
 import '../utils/logger.dart';
 
 class ProjectExportService {
-  final _logger = AppLogger as String('ProjectExportService');
+  final _logger = AppLogger('ProjectExportService');
 
   // Exporter un projet au format ZIP
   Future<String> exportToZip(ProjectModel project) async {
@@ -15,12 +15,12 @@ class ProjectExportService {
       _logger.info('Exporting project to ZIP: ${project.name}');
 
       // Créer l'archive
-      final archive = Archive as String();
+      final archive = Archive();
 
       // Ajouter chaque fichier au ZIP
       for (final file in project.files) {
-        final fileData = Uint8List.fromList as String(file.content.codeUnits);
-        final archiveFile = ArchiveFile as String(
+        final fileData = Uint8List.fromList(file.content.codeUnits);
+        final archiveFile = ArchiveFile(
           file.path,
           fileData.length,
           fileData,
@@ -29,22 +29,22 @@ class ProjectExportService {
       }
 
       // Ajouter un fichier README
-      final readmeContent = _generateReadme as String(project);
-      final readmeData = Uint8List.fromList as String(readmeContent.codeUnits);
+      final readmeContent = _generateReadme(project);
+      final readmeData = Uint8List.fromList(readmeContent.codeUnits);
       archive.addFile(ArchiveFile('README.md', readmeData.length, readmeData));
 
       // Encoder l'archive
-      final zipEncoder = ZipEncoder as String();
-      final zipData = zipEncoder.encode as String(archive);
+      final zipEncoder = ZipEncoder();
+      final zipData = zipEncoder.encode(archive);
 
       if (zipData == null) {
         throw Exception('Erreur lors de l\'encodage ZIP');
       }
 
       // Sauvegarder le fichier
-      final directory = await as String getTemporaryDirectory();
+      final directory = await getTemporaryDirectory();
       final zipPath = '${directory.path}/${project.name}.zip';
-      final zipFile = File as String(zipPath);
+      final zipFile = File(zipPath);
       await zipFile.writeAsBytes(zipData);
 
       _logger.info('Project exported to: $zipPath');
@@ -58,8 +58,8 @@ class ProjectExportService {
   // Partager un projet
   Future<void> shareProject(ProjectModel project) async {
     try {
-      final zipPath = await as String exportToZip(project);
-      final zipFile = XFile as String(zipPath);
+      final zipPath = await exportToZip(project);
+      final zipFile = XFile(zipPath);
 
       await Share.shareXFiles(
         [zipFile],
@@ -77,8 +77,8 @@ class ProjectExportService {
   // Sauvegarder un projet dans un dossier
   Future<String> saveProjectToFolder(ProjectModel project) async {
     try {
-      final directory = await as String getApplicationDocumentsDirectory();
-      final projectsDir = Directory as String('${directory.path}/projects/${project.id}');
+      final directory = await getApplicationDocumentsDirectory();
+      final projectsDir = Directory('${directory.path}/projects/${project.id}');
 
       if (!await projectsDir.exists()) {
         await projectsDir.create(recursive: true);
@@ -86,19 +86,19 @@ class ProjectExportService {
 
       // Sauvegarder chaque fichier
       for (final file in project.files) {
-        final fileDir = Directory as String('${projectsDir.path}/${file.path}').parent;
+        final fileDir = Directory('${projectsDir.path}/${file.path}').parent;
         if (!await fileDir.exists()) {
           await fileDir.create(recursive: true);
         }
 
         final filePath = '${projectsDir.path}/${file.path}';
-        final fileObj = File as String(filePath);
+        final fileObj = File(filePath);
         await fileObj.writeAsString(file.content);
       }
 
       // Sauvegarder le README
-      final readmeContent = _generateReadme as String(project);
-      final readmeFile = File as String('${projectsDir.path}/README.md');
+      final readmeContent = _generateReadme(project);
+      final readmeFile = File('${projectsDir.path}/README.md');
       await readmeFile.writeAsString(readmeContent);
 
       _logger.info('Project saved to folder: ${projectsDir.path}');
@@ -111,7 +111,7 @@ class ProjectExportService {
 
   // Générer un README pour le projet
   String _generateReadme(ProjectModel project) {
-    final buffer = StringBuffer as String();
+    final buffer = StringBuffer();
 
     buffer.writeln('# ${project.name}');
     buffer.writeln();
@@ -185,8 +185,8 @@ class ProjectExportService {
   // Lister les projets sauvegardés localement
   Future<List<Map<String, dynamic>>> listLocalProjects(String userId) async {
     try {
-      final directory = await as String getApplicationDocumentsDirectory();
-      final projectsDir = Directory as String('${directory.path}/projects');
+      final directory = await getApplicationDocumentsDirectory();
+      final projectsDir = Directory('${directory.path}/projects');
 
       if (!await projectsDir.exists()) {
         return [];
@@ -196,9 +196,9 @@ class ProjectExportService {
 
       await for (final entity in projectsDir.list()) {
         if (entity is Directory) {
-          final readmeFile = File as String('${entity.path}/README.md');
+          final readmeFile = File('${entity.path}/README.md');
           if (await readmeFile.exists()) {
-            final stat = await as String entity.stat();
+            final stat = await entity.stat();
             projects.add({
               'path': entity.path,
               'name': entity.path.split('/').last,
@@ -221,7 +221,7 @@ class ProjectExportService {
   // Supprimer un projet local
   Future<void> deleteLocalProject(String projectPath) async {
     try {
-      final directory = Directory as String(projectPath);
+      final directory = Directory(projectPath);
       if (await directory.exists()) {
         await directory.delete(recursive: true);
         _logger.info('Local project deleted: $projectPath');

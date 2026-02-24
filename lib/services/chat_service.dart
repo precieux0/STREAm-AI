@@ -116,7 +116,7 @@ class ChatService {
 
       if (response.statusCode == 200) {
         final data = response.data;
-        return (data[.response.] ?? data[.assistant.]) as String?;
+        return (data["response"] ?? data["assistant"]) as String?;
       }
       return null;
     } on DioException catch (e) {

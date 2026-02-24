@@ -50,7 +50,7 @@ class SupabaseService {
       }
 
       if (before != null) {
-        query = query.filter('created_at', 'lt', before.toIso8601String(.toIso8601String()));
+        query = query.filter('created_at', 'lt', before.toIso8601String());
       }
 
       final response = await query;
@@ -249,10 +249,10 @@ class SupabaseService {
       final response = await _client
           .from('messages')
           .delete()
-          .filter('created_at', 'lt', cutoffDate.toIso8601String())
+          .filter('created_at', 'lt', cutoffDate)
           .select();
 
-      final count = (response as Map<String, dynamic>;
+      final count = response as Map<String, dynamic>;
       _logger.info('Cleaned up $count old messages');
       return count;
     } catch (e) {
