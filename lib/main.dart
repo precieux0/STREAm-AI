@@ -32,7 +32,6 @@ class StreamAIApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
       overrides: [
         // Override des providers avec les instances réelles
         authServiceProvider.overrideWith((ref) {
@@ -43,17 +42,7 @@ class StreamAIApp extends StatelessWidget {
           );
           return AuthService(supabase, googleSignIn);
         }),
-        supabaseServiceProvider.overrideWith((ref) => SupabaseService(Supabase.instance.client)),
-        currentUserIdProvider.overrideWith((ref) => Supabase.instance.client.auth.currentUser?.id),
-        }),
       ],
-      child: MaterialApp(
-        title: AppConstants.appName,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.system,
-        home: const SplashView(),
       ),
     );
   }
