@@ -48,7 +48,6 @@ dependencies:
   logger: ^2.0.2
   
   # Langue
-  langdetect: ^2.0.0
   
   # Permissions
   permission_handler: ^11.0.1
