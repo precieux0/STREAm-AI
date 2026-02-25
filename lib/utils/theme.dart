@@ -95,46 +95,46 @@ class AppTheme {
         onError: Colors.white,
       ),
       scaffoldBackgroundColor: backgroundLight,
-      textTheme: GoogleFonts.interTextTheme().copyWith(
-        displayLarge: GoogleFonts.inter(
+      textTheme: .copyWith(.copyWith(
+        displayLarge: Roboto(
           fontSize: 32,
           fontWeight: FontWeight.bold,
           color: textPrimaryLight,
         ),
-        displayMedium: GoogleFonts.inter(
+        displayMedium: Roboto(
           fontSize: 28,
           fontWeight: FontWeight.bold,
           color: textPrimaryLight,
         ),
-        displaySmall: GoogleFonts.inter(
+        displaySmall: Roboto(
           fontSize: 24,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        headlineMedium: GoogleFonts.inter(
+        headlineMedium: Roboto(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        headlineSmall: GoogleFonts.inter(
+        headlineSmall: Roboto(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        titleLarge: GoogleFonts.inter(
+        titleLarge: Roboto(
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        bodyLarge: GoogleFonts.inter(
+        bodyLarge: Roboto(
           fontSize: 16,
           color: textPrimaryLight,
         ),
-        bodyMedium: GoogleFonts.inter(
+        bodyMedium: Roboto(
           fontSize: 14,
           color: textPrimaryLight,
         ),
-        bodySmall: GoogleFonts.inter(
+        bodySmall: Roboto(
           fontSize: 12,
           color: textSecondaryLight,
         ),
@@ -143,7 +143,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: true,
         backgroundColor: surfaceLight,
-        titleTextStyle: GoogleFonts.inter(
+        titleTextStyle: Roboto(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
@@ -177,7 +177,7 @@ class AppTheme {
           borderSide: const BorderSide(color: errorColor, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        hintStyle: GoogleFonts.inter(
+        hintStyle: Roboto(
           color: textSecondaryLight,
           fontSize: 14,
         ),
@@ -191,7 +191,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: Roboto(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -201,7 +201,7 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: primaryColor,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: GoogleFonts.inter(
+          textStyle: Roboto(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -230,7 +230,7 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: surfaceDark,
-        contentTextStyle: GoogleFonts.inter(
+        contentTextStyle: Roboto(
           color: textPrimaryDark,
           fontSize: 14,
         ),
@@ -260,46 +260,46 @@ class AppTheme {
         onError: Colors.white,
       ),
       scaffoldBackgroundColor: backgroundDark,
-      textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
-        displayLarge: GoogleFonts.inter(
+      textTheme: ThemeData.dark(.copyWith(.textTheme).copyWith(
+        displayLarge: Roboto(
           fontSize: 32,
           fontWeight: FontWeight.bold,
           color: textPrimaryDark,
         ),
-        displayMedium: GoogleFonts.inter(
+        displayMedium: Roboto(
           fontSize: 28,
           fontWeight: FontWeight.bold,
           color: textPrimaryDark,
         ),
-        displaySmall: GoogleFonts.inter(
+        displaySmall: Roboto(
           fontSize: 24,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        headlineMedium: GoogleFonts.inter(
+        headlineMedium: Roboto(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        headlineSmall: GoogleFonts.inter(
+        headlineSmall: Roboto(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        titleLarge: GoogleFonts.inter(
+        titleLarge: Roboto(
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        bodyLarge: GoogleFonts.inter(
+        bodyLarge: Roboto(
           fontSize: 16,
           color: textPrimaryDark,
         ),
-        bodyMedium: GoogleFonts.inter(
+        bodyMedium: Roboto(
           fontSize: 14,
           color: textPrimaryDark,
         ),
-        bodySmall: GoogleFonts.inter(
+        bodySmall: Roboto(
           fontSize: 12,
           color: textSecondaryDark,
         ),
@@ -308,7 +308,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: true,
         backgroundColor: surfaceDark,
-        titleTextStyle: GoogleFonts.inter(
+        titleTextStyle: Roboto(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
@@ -342,7 +342,7 @@ class AppTheme {
           borderSide: const BorderSide(color: errorColor, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        hintStyle: GoogleFonts.inter(
+        hintStyle: Roboto(
           color: textSecondaryDark,
           fontSize: 14,
         ),
@@ -356,7 +356,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: Roboto(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -366,7 +366,7 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: primaryLight,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: GoogleFonts.inter(
+          textStyle: Roboto(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -395,7 +395,7 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: surfaceLight,
-        contentTextStyle: GoogleFonts.inter(
+        contentTextStyle: Roboto(
           color: textPrimaryLight,
           fontSize: 14,
         ),
