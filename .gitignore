@@ -1,70 +1,10 @@
-# Miscellaneous
-*.class
+# Backups
+*.backup
+*.bak
+*.backup.*
+*.bak.*
+
+# Fichiers temporaires
 *.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# VS Code
-.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
-/build/
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# Environment files
-.env
-.env.local
-.env.*.local
-
-# Firebase (si utilisé un jour)
-google-services.json
-GoogleService-Info.plist
-
-# Keystore files
-*.jks
-*.keystore
-key.properties
-
-# Coverage
-coverage/
-
-# Test results
-test-results/
-
-# Temporary files
 *.tmp
-*.temp
-*.lock
-
-# OS generated files
-Thumbs.db
+.DS_Store
