@@ -2,7 +2,6 @@ import 'package:stream_ai/utils/constants.dart';
 import 'package:stream_ai/models/models.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../utils/logger.dart';
-import '../utils/constants.dart';
 
 class SupabaseService {
   final SupabaseClient _client;
@@ -40,16 +39,16 @@ class SupabaseService {
       var query = _client
           .from('messages')
           .select()
-          .filter('user_id', 'eq', userId)
+          .eq('user_id', userId)
           .order('created_at', ascending: false)
           .limit(limit);
 
       if (mode != null) {
-        query = query.filter('mode', 'eq', mode);
+        query = query.eq('mode', mode);
       }
 
       if (before != null) {
-        query = query.filter('created_at', 'eq', before.toIso8601String());
+        query = query.lt('created_at', before.toIso8601String());
       }
 
       final response = await query;
@@ -77,7 +76,7 @@ class SupabaseService {
   // Supprimer un message
   Future<void> deleteMessage(String messageId) async {
     try {
-      await _client.from('messages').delete().filter('id', 'eq', messageId);
+      await _client.from('messages').delete().eq('id', messageId);
       _logger.info('Message deleted: $messageId');
     } catch (e) {
       _logger.error('Error deleting message: $e');
@@ -88,7 +87,7 @@ class SupabaseService {
   // Supprimer tous les messages d'un utilisateur
   Future<void> deleteAllUserMessages(String userId) async {
     try {
-      await _client.from('messages').delete().filter('user_id', 'eq', userId);
+      await _client.from('messages').delete().eq('user_id', userId);
       _logger.info('All messages deleted for user: $userId');
     } catch (e) {
       _logger.error('Error deleting all user messages: $e');
@@ -121,7 +120,7 @@ class SupabaseService {
       final response = await _client
           .from('projects')
           .select()
-          .filter('user_id', 'eq', userId)
+          .eq('user_id', userId)
           .order('created_at', ascending: false);
 
       final projects = (response as List)
@@ -139,7 +138,7 @@ class SupabaseService {
   // Supprimer un projet
   Future<void> deleteProject(String projectId) async {
     try {
-      await _client.from('projects').delete().filter('id', 'eq', projectId);
+      await _client.from('projects').delete().eq('id', projectId);
       _logger.info('Project deleted: $projectId');
     } catch (e) {
       _logger.error('Error deleting project: $e');
@@ -173,7 +172,7 @@ class SupabaseService {
       final response = await _client
           .from('generated_images')
           .select()
-          .filter('user_id', 'eq', userId)
+          .eq('user_id', userId)
           .order('created_at', ascending: false);
 
       final images = (response as List)
@@ -191,7 +190,7 @@ class SupabaseService {
   // Supprimer une image
   Future<void> deleteImage(String imageId) async {
     try {
-      await _client.from('generated_images').delete().filter('id', 'eq', imageId);
+      await _client.from('generated_images').delete().eq('id', imageId);
       _logger.info('Image deleted: $imageId');
     } catch (e) {
       _logger.error('Error deleting image: $e');
@@ -207,7 +206,7 @@ class SupabaseService {
       final response = await _client
           .from('users')
           .select()
-          .filter('id', 'eq', userId)
+          .eq('id', userId)
           .maybeSingle();
 
       if (response == null) return null;
@@ -225,7 +224,7 @@ class SupabaseService {
       final response = await _client
           .from('users')
           .update(user.toJson())
-          .filter('id', 'eq', user.id)
+          .eq('id', user.id)
           .select()
           .single();
 
@@ -248,12 +247,10 @@ class SupabaseService {
       final response = await _client
           .from('messages')
           .delete()
-          .filter('created_at', 'eq', cutoffDate)
-          .select();
+          .lt('created_at', cutoffDate);
 
-      final count = response as Map<String, dynamic>;
-      _logger.info('Cleaned up $count old messages');
-      return count;
+      _logger.info('Cleaned up old messages');
+      return 0; // Retourne 0 car on ne peut pas compter facilement
     } catch (e) {
       _logger.error('Error cleaning up old messages: $e');
       rethrow;
@@ -263,11 +260,9 @@ class SupabaseService {
   // Compacter les données utilisateur
   Future<void> compactUserData(String userId) async {
     try {
-      // Récupérer tous les messages de l'utilisateur
       final messages = await getUserMessages(userId, limit: 10000);
 
       if (messages.length > AppConstants.maxChatHistory) {
-        // Garder seulement les plus récents
         final messagesToDelete = messages
             .take(messages.length - AppConstants.maxChatHistory)
             .toList();

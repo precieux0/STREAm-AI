@@ -1,9 +1,8 @@
-import 'package:stream_ai/utils/constants.dart';
-import 'package:state_notifier/state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_ai/viewmodels/auth_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../utils/theme.dart';
+import '../utils/constants.dart';
 import 'login_view.dart';
 
 class ProfileView extends ConsumerWidget {
@@ -88,12 +87,12 @@ class ProfileView extends ConsumerWidget {
             CircleAvatar(
               radius: 50,
               backgroundImage:
-                  user.photoUrl != null ? NetworkImage(user.photoUrl! as String) : null,
+                  user.photoUrl != null ? NetworkImage(user.photoUrl as String) : null,
               backgroundColor: AppTheme.primaryColor.withOpacity(0.2),
               child: user.photoUrl == null
                   ? Text(
-                      user.name?.substring(0, 1).toUpperCase() ??
-                          user.email.substring(0, 1).toUpperCase(),
+                      (user.name as String?)?.substring(0, 1).toUpperCase() ??
+                          (user.email as String).substring(0, 1).toUpperCase(),
                       style: const TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
@@ -401,7 +400,7 @@ class ProfileView extends ConsumerWidget {
   }
 
   String _formatDate(DateTime date) {
-    final months = [
+    const months = [
       'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
       'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
     ];
