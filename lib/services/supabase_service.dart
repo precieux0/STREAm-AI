@@ -44,11 +44,11 @@ class SupabaseService {
           .limit(limit);
 
       if (mode != null) {
-        query = query.eq('mode', mode);
+        query = query.filter('mode', 'eq', mode);
       }
 
       if (before != null) {
-        query = query.lt('created_at', before.toIso8601String());
+        query = query.filter('created_at', 'lt', before.toIso8601String());
       }
 
       final response = await query;
