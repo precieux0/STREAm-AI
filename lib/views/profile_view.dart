@@ -1,4 +1,5 @@
 import 'package:stream_ai/utils/constants.dart';
+import 'package:state_notifier/state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_ai/viewmodels/auth_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -91,7 +92,7 @@ class ProfileView extends ConsumerWidget {
               backgroundColor: AppTheme.primaryColor.withOpacity(0.2),
               child: user.photoUrl == null
                   ? Text(
-                      user.name?.substring as String(0, 1).toUpperCase() ??
+                      user.name?.substring(0, 1).toUpperCase() ??
                           user.email.substring(0, 1).toUpperCase(),
                       style: const TextStyle(
                         fontSize: 36,
