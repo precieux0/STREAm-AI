@@ -21,7 +21,7 @@ class SupabaseService {
           .single();
 
       _logger.info('Message saved: ${message.id}');
-      return MessageModel.fromJson(response);
+      return MessageModel.fromJson(response as Map<String, dynamic>);
     } catch (e) {
       _logger.error('Error saving message: $e');
       rethrow;
@@ -44,17 +44,17 @@ class SupabaseService {
           .limit(limit);
 
       if (mode != null) {
-        query = query.filter('mode', 'eq', mode);
+        query = query.eq('mode', mode);
       }
 
       if (before != null) {
-        query = query.filter('created_at', 'lt', before.toIso8601String());
+        query = query.lt('created_at', before.toIso8601String());
       }
 
       final response = await query;
 
       final messages = (response as List)
-          .map((json) => MessageModel.fromJson(json))
+          .map((json) => MessageModel.fromJson(json as Map<String, dynamic>))
           .toList();
 
       _logger.info('Retrieved ${messages.length} messages for user $userId');
@@ -107,7 +107,7 @@ class SupabaseService {
           .single();
 
       _logger.info('Project saved: ${project.id}');
-      return ProjectModel.fromJson(response);
+      return ProjectModel.fromJson(response as Map<String, dynamic>);
     } catch (e) {
       _logger.error('Error saving project: $e');
       rethrow;
@@ -124,7 +124,7 @@ class SupabaseService {
           .order('created_at', ascending: false);
 
       final projects = (response as List)
-          .map((json) => ProjectModel.fromJson(json))
+          .map((json) => ProjectModel.fromJson(json as Map<String, dynamic>))
           .toList();
 
       _logger.info('Retrieved ${projects.length} projects for user $userId');
@@ -159,7 +159,7 @@ class SupabaseService {
           .single();
 
       _logger.info('Image saved: ${image.id}');
-      return GeneratedImageModel.fromJson(response);
+      return GeneratedImageModel.fromJson(response as Map<String, dynamic>);
     } catch (e) {
       _logger.error('Error saving image: $e');
       rethrow;
@@ -176,7 +176,7 @@ class SupabaseService {
           .order('created_at', ascending: false);
 
       final images = (response as List)
-          .map((json) => GeneratedImageModel.fromJson(json))
+          .map((json) => GeneratedImageModel.fromJson(json as Map<String, dynamic>))
           .toList();
 
       _logger.info('Retrieved ${images.length} images for user $userId');
@@ -211,7 +211,7 @@ class SupabaseService {
 
       if (response == null) return null;
 
-      return UserModel.fromJson(response);
+      return UserModel.fromJson(response as Map<String, dynamic>);
     } catch (e) {
       _logger.error('Error getting user: $e');
       rethrow;
@@ -229,7 +229,7 @@ class SupabaseService {
           .single();
 
       _logger.info('User updated: ${user.id}');
-      return UserModel.fromJson(response);
+      return UserModel.fromJson(response as Map<String, dynamic>);
     } catch (e) {
       _logger.error('Error updating user: $e');
       rethrow;
@@ -250,7 +250,7 @@ class SupabaseService {
           .lt('created_at', cutoffDate);
 
       _logger.info('Cleaned up old messages');
-      return 0; // Retourne 0 car on ne peut pas compter facilement
+      return response is List ? response.length : 0;
     } catch (e) {
       _logger.error('Error cleaning up old messages: $e');
       rethrow;
@@ -320,7 +320,7 @@ class SupabaseService {
             value: userId,
           ),
           callback: (payload) {
-            final message = MessageModel.fromJson(payload.newRecord);
+            final message = MessageModel.fromJson(payload.newRecord as Map<String, dynamic>);
             onInsert(message);
           },
         )

@@ -169,7 +169,7 @@ class ProjectExportService {
         name: json['name'] as String,
         description: json['description'] as String,
         files: files,
-        projectType: json['project_type'] ?? 'generic',
+        projectType: json['project_type']?.toString() ?? 'generic',
         createdAt: DateTime.now(),
         metadata: {
           'instructions': json['instructions'],
