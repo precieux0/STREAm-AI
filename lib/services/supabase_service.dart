@@ -1,78 +1,94 @@
+import '../models/message_model.dart';
+import '../models/project_model.dart';
+import '../models/generated_image_model.dart';
+import '../models/user_model.dart';
 import '../utils/logger.dart';
 
+// Mock de SupabaseClient
+class SupabaseClient {
+  final auth = SupabaseAuth();
+  final from = SupabaseFrom();
+}
+
+class SupabaseAuth {
+  User? currentUser;
+  Stream<AuthState> get onAuthStateChange => const Stream.empty();
+  
+  Future<void> signOut() async {}
+  Future<void> refreshSession() async {}
+  
+  Future<AuthResponse> signInWithIdToken({
+    required OAuthProvider provider,
+    required String idToken,
+    String? accessToken,
+  }) async {
+    return AuthResponse(
+      user: User(id: 'mock-user-id'),
+      session: Session(),
+    );
+  }
+}
+
+class SupabaseFrom {
+  SupabaseQueryBuilder call(String table) => SupabaseQueryBuilder(table);
+}
+
+class SupabaseQueryBuilder {
+  final String table;
+  SupabaseQueryBuilder(this.table);
+  
+  Future<List<Map<String, dynamic>>> select() async => [];
+  Future<Map<String, dynamic>?> maybeSingle() async => null;
+  Future<Map<String, dynamic>> single() async => {};
+  
+  SupabaseQueryBuilder filter(String column, String operator, dynamic value) {
+    return this;
+  }
+  
+  SupabaseQueryBuilder eq(String column, dynamic value) {
+    return this;
+  }
+  
+  SupabaseQueryBuilder order(String column, {bool ascending = true}) {
+    return this;
+  }
+  
+  SupabaseQueryBuilder limit(int count) {
+    return this;
+  }
+  
+  Future<Map<String, dynamic>> insert(Map<String, dynamic> values) async => {};
+  Future<Map<String, dynamic>> update(Map<String, dynamic> values) async => {};
+  Future<void> delete() async {}
+}
+
+// Classes mock pour les types Supabase
+class AuthState {}
+class OAuthProvider {
+  static const google = OAuthProvider._();
+  const OAuthProvider._();
+}
+
+class AuthResponse {
+  final User? user;
+  final Session? session;
+  AuthResponse({this.user, this.session});
+}
+
+class User {
+  final String id;
+  User({required this.id});
+}
+
+class Session {
+  bool get isExpired => false;
+  final user = User(id: 'mock-user-id');
+}
+
+// Service principal qui expose SupabaseClient
 class SupabaseService {
+  final SupabaseClient client;
   final _logger = AppLogger('SupabaseService');
 
-  SupabaseService();
-
-  // Mock de toutes les méthodes
-  Future<dynamic> saveMessage(message) async {
-    _logger.info('Mock: Message saved');
-    return message;
-  }
-
-  Future<List<dynamic>> getUserMessages(userId, {mode, limit, before}) async {
-    return [];
-  }
-
-  Future<List<dynamic>> getRecentMessages(userId, {count = 20}) async {
-    return [];
-  }
-
-  Future<void> deleteMessage(messageId) async {
-    _logger.info('Mock: Message deleted');
-  }
-
-  Future<void> deleteAllUserMessages(userId) async {
-    _logger.info('Mock: All messages deleted');
-  }
-
-  Future<dynamic> saveProject(project) async {
-    return project;
-  }
-
-  Future<List<dynamic>> getUserProjects(userId) async {
-    return [];
-  }
-
-  Future<void> deleteProject(projectId) async {
-    _logger.info('Mock: Project deleted');
-  }
-
-  Future<dynamic> saveGeneratedImage(image) async {
-    return image;
-  }
-
-  Future<List<dynamic>> getUserImages(userId) async {
-    return [];
-  }
-
-  Future<void> deleteImage(imageId) async {
-    _logger.info('Mock: Image deleted');
-  }
-
-  Future<dynamic> getUserById(userId) async {
-    return null;
-  }
-
-  Future<dynamic> updateUser(user) async {
-    return user;
-  }
-
-  Future<int> cleanupOldMessages(days) async {
-    return 0;
-  }
-
-  Future<void> compactUserData(userId) async {}
-
-  Future<Map<String, dynamic>> getUsageStats(userId) async {
-    return {
-      'totalMessages': 0,
-      'askMessages': 0,
-      'agentMessages': 0,
-      'totalProjects': 0,
-      'totalImages': 0,
-      'lastActivity': null,
-    };
-  }
+  SupabaseService() : client = SupabaseClient();
 }
