@@ -1,7 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+  // Couleurs principales - Thème Stream AI
+  static const Color primaryColor = Color(0xFF6366F1);
+  static const Color primaryLight = Color(0xFF818CF8);
+  static const Color primaryDark = Color(0xFF4F46E5);
+  static const Color secondaryColor = Color(0xFF10B981);
+  static const Color accentColor = Color(0xFFF59E0B);
+
+  // Couleurs de fond
+  static const Color backgroundLight = Color(0xFFF8FAFC);
+  static const Color backgroundDark = Color(0xFF0F172A);
+  static const Color surfaceLight = Color(0xFFFFFFFF);
+  static const Color surfaceDark = Color(0xFF1E293B);
+
+  // Couleurs de texte
+  static const Color textPrimaryLight = Color(0xFF1E293B);
+  static const Color textSecondaryLight = Color(0xFF64748B);
+  static const Color textPrimaryDark = Color(0xFFF1F5F9);
+  static const Color textSecondaryDark = Color(0xFF94A3B8);
+
+  // Couleurs d'état
+  static const Color successColor = Color(0xFF10B981);
+  static const Color errorColor = Color(0xFFEF4444);
+  static const Color warningColor = Color(0xFFF59E0B);
+  static const Color infoColor = Color(0xFF3B82F6);
+
+  // Couleurs de chat
+  static const Color userMessageColor = Color(0xFF6366F1);
+  static const Color aiMessageColor = Color(0xFF1E293B);
+  static const Color agentMessageColor = Color(0xFF10B981);
+
+  // Gradients
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [primaryColor, primaryLight],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient darkGradient = LinearGradient(
+    colors: [backgroundDark, Color(0xFF1E293B)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  static const LinearGradient askModeGradient = LinearGradient(
+    colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient agentModeGradient = LinearGradient(
+    colors: [Color(0xFF10B981), Color(0xFF06B6D4)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   static Color getLanguageColor(String language) {
     switch (language.toLowerCase()) {
@@ -22,61 +75,6 @@ class AppTheme {
     }
   }
 
-  // Couleurs principales - Thème Stream AI
-  static const Color primaryColor = Color(0xFF6366F1);
-  static const Color primaryLight = Color(0xFF818CF8);
-  static const Color primaryDark = Color(0xFF4F46E5);
-  static const Color secondaryColor = Color(0xFF10B981);
-  static const Color accentColor = Color(0xFFF59E0B);
-  
-  // Couleurs de fond
-  static const Color backgroundLight = Color(0xFFF8FAFC);
-  static const Color backgroundDark = Color(0xFF0F172A);
-  static const Color surfaceLight = Color(0xFFFFFFFF);
-  static const Color surfaceDark = Color(0xFF1E293B);
-  
-  // Couleurs de texte
-  static const Color textPrimaryLight = Color(0xFF1E293B);
-  static const Color textSecondaryLight = Color(0xFF64748B);
-  static const Color textPrimaryDark = Color(0xFFF1F5F9);
-  static const Color textSecondaryDark = Color(0xFF94A3B8);
-  
-  // Couleurs d'état
-  static const Color successColor = Color(0xFF10B981);
-  static const Color errorColor = Color(0xFFEF4444);
-  static const Color warningColor = Color(0xFFF59E0B);
-  static const Color infoColor = Color(0xFF3B82F6);
-  
-  // Couleurs de chat
-  static const Color userMessageColor = Color(0xFF6366F1);
-  static const Color aiMessageColor = Color(0xFF1E293B);
-  static const Color agentMessageColor = Color(0xFF10B981);
-  
-  // Gradients
-  static const LinearGradient primaryGradient = LinearGradient(
-    colors: [primaryColor, primaryLight],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-  
-  static const LinearGradient darkGradient = LinearGradient(
-    colors: [backgroundDark, Color(0xFF1E293B)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
-  
-  static const LinearGradient askModeGradient = LinearGradient(
-    colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-  
-  static const LinearGradient agentModeGradient = LinearGradient(
-    colors: [Color(0xFF10B981), Color(0xFF06B6D4)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-
   // Thème clair
   static ThemeData get lightTheme {
     return ThemeData(
@@ -95,46 +93,46 @@ class AppTheme {
         onError: Colors.white,
       ),
       scaffoldBackgroundColor: backgroundLight,
-      textTheme: .copyWith(.copyWith(
-        displayLarge: Roboto(
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,
           color: textPrimaryLight,
         ),
-        displayMedium: Roboto(
+        displayMedium: TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.bold,
           color: textPrimaryLight,
         ),
-        displaySmall: Roboto(
+        displaySmall: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        headlineMedium: Roboto(
+        headlineMedium: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        headlineSmall: Roboto(
+        headlineSmall: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        titleLarge: Roboto(
+        titleLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
         ),
-        bodyLarge: Roboto(
+        bodyLarge: TextStyle(
           fontSize: 16,
           color: textPrimaryLight,
         ),
-        bodyMedium: Roboto(
+        bodyMedium: TextStyle(
           fontSize: 14,
           color: textPrimaryLight,
         ),
-        bodySmall: Roboto(
+        bodySmall: TextStyle(
           fontSize: 12,
           color: textSecondaryLight,
         ),
@@ -143,7 +141,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: true,
         backgroundColor: surfaceLight,
-        titleTextStyle: Roboto(
+        titleTextStyle: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryLight,
@@ -177,7 +175,7 @@ class AppTheme {
           borderSide: const BorderSide(color: errorColor, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        hintStyle: Roboto(
+        hintStyle: const TextStyle(
           color: textSecondaryLight,
           fontSize: 14,
         ),
@@ -191,7 +189,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: Roboto(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -201,7 +199,7 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: primaryColor,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: Roboto(
+          textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -230,7 +228,7 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: surfaceDark,
-        contentTextStyle: Roboto(
+        contentTextStyle: const TextStyle(
           color: textPrimaryDark,
           fontSize: 14,
         ),
@@ -260,46 +258,46 @@ class AppTheme {
         onError: Colors.white,
       ),
       scaffoldBackgroundColor: backgroundDark,
-      textTheme: ThemeData.dark(.copyWith(.textTheme).copyWith(
-        displayLarge: Roboto(
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,
           color: textPrimaryDark,
         ),
-        displayMedium: Roboto(
+        displayMedium: TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.bold,
           color: textPrimaryDark,
         ),
-        displaySmall: Roboto(
+        displaySmall: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        headlineMedium: Roboto(
+        headlineMedium: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        headlineSmall: Roboto(
+        headlineSmall: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        titleLarge: Roboto(
+        titleLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
         ),
-        bodyLarge: Roboto(
+        bodyLarge: TextStyle(
           fontSize: 16,
           color: textPrimaryDark,
         ),
-        bodyMedium: Roboto(
+        bodyMedium: TextStyle(
           fontSize: 14,
           color: textPrimaryDark,
         ),
-        bodySmall: Roboto(
+        bodySmall: TextStyle(
           fontSize: 12,
           color: textSecondaryDark,
         ),
@@ -308,7 +306,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: true,
         backgroundColor: surfaceDark,
-        titleTextStyle: Roboto(
+        titleTextStyle: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textPrimaryDark,
@@ -342,7 +340,7 @@ class AppTheme {
           borderSide: const BorderSide(color: errorColor, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        hintStyle: Roboto(
+        hintStyle: const TextStyle(
           color: textSecondaryDark,
           fontSize: 14,
         ),
@@ -356,7 +354,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: Roboto(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -366,7 +364,7 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: primaryLight,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: Roboto(
+          textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -395,7 +393,7 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: surfaceLight,
-        contentTextStyle: Roboto(
+        contentTextStyle: const TextStyle(
           color: textPrimaryLight,
           fontSize: 14,
         ),
